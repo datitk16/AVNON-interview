@@ -26,6 +26,7 @@ export class FormBuilderComponent implements OnInit {
     });
 
     this.initializeLanguageForm();
+    this.addNewQuestion()
   }
 
   initializeLanguageForm() {

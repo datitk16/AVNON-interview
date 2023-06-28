@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
@@ -10,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { FormQuestionModalComponent } from './form-question-modal/form-question-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [
   { path: '', redirectTo: 'builder', pathMatch: 'full' },
@@ -32,6 +34,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
@@ -39,7 +42,8 @@ const routes: Routes = [
     MatInputModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ]
 })
 export class FormModule { }

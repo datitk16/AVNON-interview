@@ -1,32 +1,33 @@
-<!-- <form class="product-form" [formGroup]="formGroup">
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
 
-    <mat-form-field [ngClass]="isView?'readonly-wrapper':''">
-        <input matInput placeholder="Name" formControlName="name">
+    <mat-form-field>
+        <input matInput placeholder="Title" formControlName="title">
     </mat-form-field>
 
-    <mat-form-field [ngClass]="isView?'readonly-wrapper':''">
-        <input matInput placeholder="" placeholder="Price" type="number" min="0" formControlName="price"
-            testInterviewPrice>
-    </mat-form-field>
-
-    <mat-form-field [ngClass]="isView?'readonly-wrapper':''">
-        <input matInput placeholder="Description" [readonly]="isView" formControlName="description">
-    </mat-form-field>
-
-    <mat-form-field [ngClass]="isView?'readonly-wrapper':''">
-        <mat-label>Select category</mat-label>
-        <mat-select formControlName="category">
-            <mat-option *ngFor="let category of categories" [value]="category">{{category}}
-            </mat-option>
+    <mat-form-field>
+        <mat-label>Question Type</mat-label>
+        <mat-select formControlName="questionType">
+            <mat-option *ngFor="let item of questionTypes | enumToArray" [value]="item.key">{{ item.name }}</mat-option>
         </mat-select>
     </mat-form-field>
 
-    <mat-dialog-actions class="action">
-        <button mat-raised-button [mat-dialog-close]="0">Cancel</button>
-        <button mat-raised-button *ngIf="!isView" (click)="submit()" [mat-dialog-close]="1" class="mat-primary"
-            [disabled]="!formGroup.valid">{{product.id >
-            0 ?
-            'Edit' : 'Create'}} Product</button>
-    </mat-dialog-actions>
+    <div formArrayName="answerArray">
+        <mat-form-field *ngFor="let languageControl of answerArray.controls; let i = index">
+            <input placeholder="Add Answer Option" matInput type="text" [formControlName]="i" required>
+        </mat-form-field>
+    </div>
 
-</form> -->
+    <button type="button" (click)="addAnswer()">Add another answer</button>
+
+    <div>
+        <mat-checkbox class="example-margin">Allow user to specify their own answer</mat-checkbox>
+    </div>
+
+    <div>
+        <mat-checkbox class="example-margin">This field is required</mat-checkbox>
+    </div>
+
+    <mat-dialog-actions class="action">
+        <button type="submit">Submit</button>
+    </mat-dialog-actions>
+</form>
