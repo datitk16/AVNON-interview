@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { QuestionTypeEnum } from '../enums/question-type.enum';
 @Component({
@@ -11,21 +11,32 @@ export class FormQuestionModalComponent implements OnInit {
   formGroup!: FormGroup;
   answerOption: string[] = [];
   questionTypes = QuestionTypeEnum;
+  isCheckBoxList: boolean;
+
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
-      questionType: [],
-      title: [],
+      questionType: ['CheckBoxlist', [Validators.required]],
+      title: [null, Validators.required],
       answerArray: this.formBuilder.array([])
     });
 
     this.initializeLanguageForm();
+
+    this.formGroup.get('questionType')?.valueChanges.subscribe((res: string) => {
+      if (res == QuestionTypeEnum.ParagraphAnswer) {
+        this.isCheckBoxList = true;
+      } else {
+        this.isCheckBoxList = false;
+      }
+    })
+
+    console.log(this.formGroup.value)
   }
 
   initializeLanguageForm() {
     const languageArray = this.formGroup.get('answerArray') as FormArray;
-
     this.answerOption.forEach(language => {
       languageArray.push(this.formBuilder.control(language));
     });
