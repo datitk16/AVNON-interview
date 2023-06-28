@@ -1,9 +1,9 @@
 <div class="container">
     <div class="form">
-        <div *ngFor="let item of questionList">
-            <div>{{item.title}}</div>
+        <div *ngFor="let item of questionList;let i =index">
+            <div>{{item.title}} <span *ngIf="item.isrequied">*</span></div>
             <ng-container *ngIf="item.questionType === questionTypeEnum.ParagraphAnswer;else isCheckbox">
-                <app-textarea></app-textarea>
+                <app-textarea (description)="description($event, i)"></app-textarea>
             </ng-container>
             <ng-template #isCheckbox>
                 <app-languages [language]="item">
@@ -11,6 +11,10 @@
             </ng-template>
             <br />
         </div>
-        <button mat-raised-button (click)="addNewQuestion()">Add New Question</button>
+        <mat-dialog-actions class="action">
+            <button mat-raised-button (click)="addNewQuestion()">Add New Question</button>
+            <button mat-raised-button (click)="reviewMyAnswers()"> Review my answers ></button>
+        </mat-dialog-actions>
+
     </div>
 </div>

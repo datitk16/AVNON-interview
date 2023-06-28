@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
@@ -21,6 +22,8 @@ const _declarations = [
   imports: [
     CommonModule,
     MatCheckboxModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [_declarations,
     TextareaComponent,

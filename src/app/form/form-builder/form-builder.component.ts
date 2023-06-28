@@ -10,6 +10,8 @@ import { Constants } from '../../shared/constants';
 import { FormQuestionModalComponent } from '../form-question-modal/form-question-modal.component';
 import { Subject, takeUntil } from 'rxjs';
 import { selectAddQuestion } from '../+state/form.selectors';
+import { ActivatedRoute, Router } from '@angular/router';
+import { setAnswerList } from '../+state/form.actions';
 
 @Component({
   selector: 'app-form-builder',
@@ -23,25 +25,49 @@ export class FormBuilderComponent implements OnInit {
   questionList: Question[] = [
     {
       questionType: QuestionTypeEnum.ParagraphAnswer,
-      title: 'Please tell us about yourself *',
+      title: 'Please tell us about yourself',
       text: '',
+      isOwnAnswer: false,
+      isrequied: true
     },
     {
       questionType: QuestionTypeEnum.CheckBoxList,
-      title: 'Please select the languages you know *',
-      answerArray: ['Typescript', 'Python', 'C#', 'Other']
+      title: 'Please select the languages you know',
+      // 'Typescript', 'Python', 'C#', 'Other'
+      answerArray: [
+        {
+          status: false,
+          text: 'Typescript'
+        },
+        {
+          status: false,
+          text: 'Typescript'
+        },
+        {
+          status: false,
+          text: 'Typescript'
+        },
+        {
+          status: false,
+          text: 'Typescript'
+        }],
+      isOwnAnswer: false,
+      isrequied: false
     }
   ];
 
   questionTypeEnum = QuestionTypeEnum;
   formGroup!: FormGroup;
   languages: string[] = ['Typescript', 'Python', 'C#', 'Other'];
+  isAnswer: boolean;
 
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
     private store: Store<AppState>,
-  ) { }
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -54,8 +80,9 @@ export class FormBuilderComponent implements OnInit {
     this.store.select(selectAddQuestion)
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((res: Question) => {
-        if (res) {
-          this.questionList.push(res)
+        if (Object.keys(res).length !== 0) {
+          const data = JSON.stringify(res)
+          this.questionList.push({ ...JSON.parse(data) })
         }
       });
   }
@@ -71,6 +98,15 @@ export class FormBuilderComponent implements OnInit {
     this.dialog.open(FormQuestionModalComponent, {
       width: Constants.modalWith,
     });
+  }
+
+  reviewMyAnswers() {
+    this.store.dispatch(setAnswerList({ answers: this.questionList }))
+    this.router.navigateByUrl('form/answer')
+  }
+
+  description(value: string, index: number) {
+    this.questionList[index].text = value;
   }
 
 }

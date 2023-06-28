@@ -1,1 +1,10 @@
-<p>dialog-message-modal works!</p>
+<h2 mat-dialog-title class="{{data.titleClass}}">
+    <mat-icon>{{data.titleIcon}}</mat-icon>{{data.titleText}}
+</h2>
+<mat-dialog-content>
+    {{data.messageText}}
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button *ngIf="data.showCancelBtn" mat-raised-button [mat-dialog-close]="0">Cancel</button>
+    <button mat-raised-button class="mat-primary" [mat-dialog-close]="1">OK</button>
+</mat-dialog-actions>

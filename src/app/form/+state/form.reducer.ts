@@ -2,10 +2,11 @@ import { Question } from './../models/question.model';
 import { Action, createReducer, on } from '@ngrx/store';
 
 import { FormState } from './form.state';
-import { setAddNewQuestion } from './form.actions';
+import { setAddNewQuestion, setAnswerList } from './form.actions';
 
 const initialState: FormState = {
-  question: new Question
+  question: new Question,
+  answers: new Array
 };
 
 const formReducer = createReducer(
@@ -13,6 +14,10 @@ const formReducer = createReducer(
   on(setAddNewQuestion, (state, action) => ({
     ...state,
     question: action.question
+  })),
+  on(setAnswerList, (state, action) => ({
+    ...state,
+    answers: action.answers
   })),
 );
 

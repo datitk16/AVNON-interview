@@ -10,3 +10,9 @@ export const selectAddQuestion = createSelector(
   (state: FormState) => state.question
 );
 
+
+export const selectAnswers = createSelector(
+  selectFormState,
+  (state: FormState) => state.answers
+);
+

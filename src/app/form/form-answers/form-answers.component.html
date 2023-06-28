@@ -1,1 +1,18 @@
-<p>form-answers works!</p>
+<div class="container">
+    <div class="form">
+        <div *ngFor="let item of questionList;let i =index">
+            <div>{{item.title}} <span *ngIf="item.isrequied">*</span></div>
+            <ng-container *ngIf="item.questionType === questionTypeEnum.ParagraphAnswer;else isCheckbox">
+                <p>{{item.text}}</p>
+            </ng-container>
+            <ng-template #isCheckbox>
+                <ng-container *ngFor="let language of item.answerArray">
+                    <ng-container *ngIf="language.status">
+                        <div>{{language.text}}</div>
+                    </ng-container>
+                </ng-container>
+            </ng-template>
+            <br />
+        </div>
+    </div>
+</div>

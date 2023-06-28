@@ -13,24 +13,25 @@
             <mat-option *ngFor="let item of questionTypes | enumToArray" [value]="item.key">{{ item.name }}</mat-option>
         </mat-select>
         <mat-error *ngIf="formGroup.get('questionType')?.hasError('required')">
-            Title is required
+            QuestionType is required
         </mat-error>
     </mat-form-field>
 
     <div formArrayName="answerArray">
         <mat-form-field *ngFor="let languageControl of answerArray.controls; let i = index">
-            <input placeholder="Add Answer Option" matInput type="text" [formControlName]="i" required>
+            <input placeholder="Answer Option" matInput type="text" [formControlName]="i" required>
+            <mat-error *ngIf="answerArray.at(i)?.hasError('required')">
+                Answer Option is required
+            </mat-error>
         </mat-form-field>
     </div>
 
     <button [disabled]="isCheckBoxList" type="button" (click)="addAnswer()">Add another answer</button>
 
     <div>
-        <mat-checkbox class="example-margin">Allow user to specify their own answer</mat-checkbox>
-    </div>
-
-    <div>
-        <mat-checkbox class="example-margin">This field is required</mat-checkbox>
+        <mat-checkbox formControlName="isOwnAnswer" class="example-margin">Allow user to specify their own answer
+        </mat-checkbox> <br />
+        <mat-checkbox formControlName="isrequied" class="example-margin">This field is required</mat-checkbox>
     </div>
 
     <mat-dialog-actions class="action">
