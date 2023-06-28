@@ -1,0 +1,22 @@
+@import '../../../styles/variables.scss';
+
+.form {
+    form {
+        padding: 10px;
+        border: 1px solid $primary;
+        max-width: 500px;
+        margin: auto;
+
+        mat-form-field {
+            width: 100%;
+        }
+
+        .action {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .languages-option {}
+
+}

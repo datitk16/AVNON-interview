@@ -1,0 +1,32 @@
+<!-- <form class="product-form" [formGroup]="formGroup">
+
+    <mat-form-field [ngClass]="isView?'readonly-wrapper':''">
+        <input matInput placeholder="Name" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field [ngClass]="isView?'readonly-wrapper':''">
+        <input matInput placeholder="" placeholder="Price" type="number" min="0" formControlName="price"
+            testInterviewPrice>
+    </mat-form-field>
+
+    <mat-form-field [ngClass]="isView?'readonly-wrapper':''">
+        <input matInput placeholder="Description" [readonly]="isView" formControlName="description">
+    </mat-form-field>
+
+    <mat-form-field [ngClass]="isView?'readonly-wrapper':''">
+        <mat-label>Select category</mat-label>
+        <mat-select formControlName="category">
+            <mat-option *ngFor="let category of categories" [value]="category">{{category}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-dialog-actions class="action">
+        <button mat-raised-button [mat-dialog-close]="0">Cancel</button>
+        <button mat-raised-button *ngIf="!isView" (click)="submit()" [mat-dialog-close]="1" class="mat-primary"
+            [disabled]="!formGroup.valid">{{product.id >
+            0 ?
+            'Edit' : 'Create'}} Product</button>
+    </mat-dialog-actions>
+
+</form> -->
