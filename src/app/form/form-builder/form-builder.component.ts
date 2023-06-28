@@ -12,6 +12,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { selectAddQuestion } from '../+state/form.selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { setAnswerList } from '../+state/form.actions';
+import { MatDialogService } from 'src/app/core/services/mat-dialog.service';
 
 @Component({
   selector: 'app-form-builder',
@@ -60,8 +61,10 @@ export class FormBuilderComponent implements OnInit {
   formGroup!: FormGroup;
   languages: string[] = ['Typescript', 'Python', 'C#', 'Other'];
   isAnswer: boolean;
+  isData: boolean;
 
   constructor(
+    private dialogMessage: MatDialogService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private store: Store<AppState>,
@@ -107,6 +110,17 @@ export class FormBuilderComponent implements OnInit {
 
   description(value: string, index: number) {
     this.questionList[index].text = value;
+  }
+
+  private isValid(item: Question): boolean {
+    if (item.isrequied) {
+      if (item.questionType == this.questionTypeEnum.ParagraphAnswer) {
+        return !item.text;
+      } else {
+        return !item.answerArray?.length;
+      }
+    }
+    return false;
   }
 
 }
