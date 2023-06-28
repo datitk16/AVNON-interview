@@ -1,22 +1,19 @@
 @import '../../../styles/variables.scss';
 
 .form {
-    form {
-        padding: 10px;
-        border: 1px solid $primary;
-        max-width: 500px;
-        margin: auto;
+    padding: 10px;
+    border: 1px solid $primary;
+    max-width: 500px;
+    margin: 100px auto;
 
-        mat-form-field {
-            width: 100%;
-        }
-
-        .action {
-            display: flex;
-            justify-content: center;
-        }
+    mat-form-field {
+        width: 100%;
     }
 
-    .languages-option {}
+    .action {
+        display: flex;
+        justify-content: center;
+    }
+
 
 }

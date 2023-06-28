@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 import { WhiteSpacePipe } from './pipes/white-space.pipe';
+import { TextareaComponent } from './components/textarea/textarea.component';
+import { LanguagesComponent } from './components/languages/languages.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -11,12 +14,17 @@ const _declarations = [
 ]
 @NgModule({
   declarations: [
-    _declarations
+    _declarations,
+    TextareaComponent,
+    LanguagesComponent
   ],
   imports: [
     CommonModule,
+    MatCheckboxModule,
   ],
-  exports: [_declarations],
+  exports: [_declarations,
+    TextareaComponent,
+    LanguagesComponent],
   providers: [WhiteSpacePipe]
 })
 export class SharedModule { }

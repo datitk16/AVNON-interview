@@ -54,6 +54,8 @@ export class FormQuestionModalComponent implements OnInit {
   submitForm() {
     const question = new Question();
     question.title = this.formGroup.value.title;
+    question.questionType = this.formGroup.value.questionType;
+    question.answerArray = this.formGroup.value.answerArray;
     this.store.dispatch(setAddNewQuestion({ question: question }));
   }
 

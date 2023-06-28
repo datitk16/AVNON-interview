@@ -1,3 +1,5 @@
+import { QuestionTypeEnum } from './../enums/question-type.enum';
+import { QuestionType } from './../models/question-type.model';
 import { Question } from './../models/question.model';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
@@ -18,9 +20,22 @@ export class FormBuilderComponent implements OnInit {
 
   private _unsubscribeAll: Subject<void> = new Subject<void>();
 
+  questionList: Question[] = [
+    {
+      questionType: QuestionTypeEnum.ParagraphAnswer,
+      title: 'Please tell us about yourself *',
+      text: '',
+    },
+    {
+      questionType: QuestionTypeEnum.CheckBoxList,
+      title: 'Please select the languages you know *',
+      answerArray: ['Typescript', 'Python', 'C#', 'Other']
+    }
+  ];
+
+  questionTypeEnum = QuestionTypeEnum;
   formGroup!: FormGroup;
   languages: string[] = ['Typescript', 'Python', 'C#', 'Other'];
-
 
   constructor(
     private fb: FormBuilder,
@@ -28,20 +43,20 @@ export class FormBuilderComponent implements OnInit {
     private store: Store<AppState>,
   ) { }
 
-
   ngOnInit(): void {
     this.formGroup = this.fb.group({
       languages: this.fb.array([
-      ]),
+      ])
     });
 
     this.initializeLanguageForm();
-    this.addNewQuestion();
 
     this.store.select(selectAddQuestion)
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((res) => {
-        console.log(res)
+      .subscribe((res: Question) => {
+        if (res) {
+          this.questionList.push(res)
+        }
       });
   }
 
