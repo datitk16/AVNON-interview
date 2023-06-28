@@ -31,8 +31,6 @@ export class FormQuestionModalComponent implements OnInit {
         this.isCheckBoxList = false;
       }
     })
-
-    console.log(this.formGroup.value)
   }
 
   initializeLanguageForm() {
