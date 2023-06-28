@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormQuestionModalComponent } from './form-question-modal/form-question-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './+state/form.reducer';
 
 const routes: Routes = [
   { path: '', redirectTo: 'builder', pathMatch: 'full' },
@@ -43,7 +45,8 @@ const routes: Routes = [
     MatCheckboxModule,
     MatButtonModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    StoreModule.forFeature('formState', reducer),
   ]
 })
 export class FormModule { }

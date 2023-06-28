@@ -1,6 +1,9 @@
+import { Question } from './../models/question.model';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/+state/app.state';
+import { setAddNewQuestion } from '../+state/form.actions';
 import { QuestionTypeEnum } from '../enums/question-type.enum';
 @Component({
   selector: 'app-form-question-modal',
@@ -13,7 +16,10 @@ export class FormQuestionModalComponent implements OnInit {
   questionTypes = QuestionTypeEnum;
   isCheckBoxList: boolean;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
@@ -46,9 +52,9 @@ export class FormQuestionModalComponent implements OnInit {
   }
 
   submitForm() {
-    if (this.formGroup.valid) {
-      console.log(this.formGroup.value);
-    }
+    const question = new Question();
+    question.title = this.formGroup.value.title;
+    this.store.dispatch(setAddNewQuestion({ question: question }));
   }
 
   get answerArray(): FormArray {
