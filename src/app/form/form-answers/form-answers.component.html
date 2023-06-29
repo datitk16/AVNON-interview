@@ -1,7 +1,8 @@
 <div class="container">
     <div class="form">
         <div *ngFor="let item of questionList;let i =index">
-            <div>{{item.title}} <span *ngIf="item.isrequied">*</span></div>
+            <div>{{ (item.text || item.answerArray?.length) ? item.title : ''}} <span *ngIf="item.isrequied">*</span>
+            </div>
             <ng-container *ngIf="item.questionType === questionTypeEnum.ParagraphAnswer;else isCheckbox">
                 <p>{{item.text}}</p>
             </ng-container>

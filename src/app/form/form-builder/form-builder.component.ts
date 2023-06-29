@@ -85,7 +85,6 @@ export class FormBuilderComponent implements OnInit {
         }
       });
 
-    this.addNewQuestion()
   }
 
   initializeLanguageForm() {
