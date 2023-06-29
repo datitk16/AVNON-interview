@@ -14,6 +14,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './+state/form.reducer';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   { path: '', redirectTo: 'builder', pathMatch: 'full' },
@@ -46,6 +48,8 @@ const routes: Routes = [
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
+    MatCardModule,
+    MatIconModule,
     StoreModule.forFeature('formState', reducer),
   ]
 })

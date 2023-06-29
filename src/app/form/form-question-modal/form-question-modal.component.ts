@@ -16,7 +16,7 @@ export class FormQuestionModalComponent implements OnInit {
   formGroup!: FormGroup;
   answerOption: string[] = [];
   questionTypes = QuestionTypeEnum;
-  isCheckBoxList: boolean = true;
+  isCheckBoxList: boolean;
 
   constructor(
     private dialogMessage: MatDialogService,
@@ -26,7 +26,7 @@ export class FormQuestionModalComponent implements OnInit {
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
-      questionType: ['', [Validators.required]],
+      questionType: ['CheckBoxList', [Validators.required]],
       title: [null, Validators.required],
       answerArray: this.formBuilder.array([]),
       isrequied: [false],
@@ -59,7 +59,7 @@ export class FormQuestionModalComponent implements OnInit {
 
   submitForm() {
     if (this.formGroup.valid) {
-      if (!this.formGroup.value.answerArray.length) {
+      if (this.formGroup.value.questionType === 'CheckBoxList' && !this.formGroup.value.answerArray.length) {
         this.dialogMessage.showInfoMessage('Add Answer Option');
         return;
       }
@@ -75,6 +75,8 @@ export class FormQuestionModalComponent implements OnInit {
       question.isOwnAnswer = this.formGroup.value.isOwnAnswer;
       question.isrequied = this.formGroup.value.isrequied;
       this.store.dispatch(setAddNewQuestion({ question: question }));
+    } else {
+      this.dialogMessage.showInfoMessage('Invalid');
     }
   }
 

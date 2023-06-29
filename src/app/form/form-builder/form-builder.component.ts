@@ -1,5 +1,4 @@
 import { QuestionTypeEnum } from './../enums/question-type.enum';
-import { QuestionType } from './../models/question-type.model';
 import { Question } from './../models/question.model';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
@@ -10,8 +9,8 @@ import { Constants } from '../../shared/constants';
 import { FormQuestionModalComponent } from '../form-question-modal/form-question-modal.component';
 import { Subject, takeUntil } from 'rxjs';
 import { selectAddQuestion } from '../+state/form.selectors';
-import { ActivatedRoute, Router } from '@angular/router';
 import { setAnswerList } from '../+state/form.actions';
+import { Router } from '@angular/router';
 import { MatDialogService } from 'src/app/core/services/mat-dialog.service';
 
 @Component({
@@ -34,7 +33,6 @@ export class FormBuilderComponent implements OnInit {
     {
       questionType: QuestionTypeEnum.CheckBoxList,
       title: 'Please select the languages you know',
-      // 'Typescript', 'Python', 'C#', 'Other'
       answerArray: [
         {
           status: false,
@@ -42,17 +40,14 @@ export class FormBuilderComponent implements OnInit {
         },
         {
           status: false,
-          text: 'Typescript'
+          text: 'Python'
         },
         {
           status: false,
-          text: 'Typescript'
+          text: 'C#'
         },
-        {
-          status: false,
-          text: 'Typescript'
-        }],
-      isOwnAnswer: false,
+      ],
+      isOwnAnswer: true,
       isrequied: false
     }
   ];
@@ -64,11 +59,11 @@ export class FormBuilderComponent implements OnInit {
   isData: boolean;
 
   constructor(
-    private dialogMessage: MatDialogService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private dialogMessage: MatDialogService,
   ) {
   }
 
@@ -88,6 +83,8 @@ export class FormBuilderComponent implements OnInit {
           this.questionList.push({ ...JSON.parse(data) })
         }
       });
+
+    this.addNewQuestion()
   }
 
   initializeLanguageForm() {
@@ -104,15 +101,20 @@ export class FormBuilderComponent implements OnInit {
   }
 
   reviewMyAnswers() {
-    this.store.dispatch(setAnswerList({ answers: this.questionList }))
-    this.router.navigateByUrl('form/answer')
+    const arr = this.questionList.filter(item => this.isInvalid(item));
+    if (arr.length) {
+      this.dialogMessage.showInfoMessage('Add Answer Option');
+    } else {
+      this.store.dispatch(setAnswerList({ answers: this.questionList }))
+      this.router.navigateByUrl('form/answer')
+    }
   }
 
   description(value: string, index: number) {
     this.questionList[index].text = value;
   }
 
-  private isValid(item: Question): boolean {
+  private isInvalid(item: Question): boolean {
     if (item.isrequied) {
       if (item.questionType == this.questionTypeEnum.ParagraphAnswer) {
         return !item.text;

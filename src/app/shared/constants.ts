@@ -1,3 +1,4 @@
 export class Constants {
-  static modalWith = '400px';
+  static modalWith = '600px';
+  static minheight = '400px';
 }

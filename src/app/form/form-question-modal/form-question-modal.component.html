@@ -26,15 +26,19 @@
         </mat-form-field>
     </div>
 
-    <button [disabled]="isCheckBoxList" type="button" (click)="addAnswer()">Add another answer</button>
+    <button color="primary" mat-button [disabled]="isCheckBoxList" type="button" (click)="addAnswer()">
+        Add another answer
+    </button>
 
     <div>
-        <mat-checkbox formControlName="isOwnAnswer" class="example-margin">Allow user to specify their own answer
+        <mat-checkbox color="primary" formControlName="isOwnAnswer" class="example-margin">Allow user to specify their
+            own answer
         </mat-checkbox> <br />
-        <mat-checkbox formControlName="isrequied" class="example-margin">This field is required</mat-checkbox>
+        <mat-checkbox color="primary" formControlName="isrequied" class="example-margin">This field is required
+        </mat-checkbox>
     </div>
 
     <mat-dialog-actions class="action">
-        <button type="submit">Submit</button>
+        <button mat-raised-button type="submit">Submit</button>
     </mat-dialog-actions>
 </form>
