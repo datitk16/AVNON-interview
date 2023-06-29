@@ -75,8 +75,6 @@ export class FormQuestionModalComponent implements OnInit {
       question.isOwnAnswer = this.formGroup.value.isOwnAnswer;
       question.isrequied = this.formGroup.value.isrequied;
       this.store.dispatch(setAddNewQuestion({ question: question }));
-    } else {
-      this.dialogMessage.showInfoMessage('Invalid');
     }
   }
 

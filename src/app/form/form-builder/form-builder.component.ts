@@ -79,6 +79,7 @@ export class FormBuilderComponent implements OnInit {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((res: Question) => {
         if (Object.keys(res).length !== 0) {
+          this.dialog.closeAll();
           const data = JSON.stringify(res)
           this.questionList.push({ ...JSON.parse(data) })
         }
@@ -103,7 +104,7 @@ export class FormBuilderComponent implements OnInit {
   reviewMyAnswers() {
     const arr = this.questionList.filter(item => this.isInvalid(item));
     if (arr.length) {
-      this.dialogMessage.showInfoMessage('Add Answer Option');
+      this.dialogMessage.showInfoMessage('Check required');
     } else {
       this.store.dispatch(setAnswerList({ answers: this.questionList }))
       this.router.navigateByUrl('form/answer')

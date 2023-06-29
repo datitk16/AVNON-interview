@@ -30,7 +30,7 @@ export class MatDialogService {
         messageText: message,
         onOkHandler: onOkHandler
       },
-      width: Constants.modalWith
+      width: Constants.messageModalWith
     })
   }
 }
