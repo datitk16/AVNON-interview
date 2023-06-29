@@ -9,3 +9,8 @@
     justify-content: space-between;
     align-items: center;
 }
+
+@mixin title ($font-size) {
+    font-size: $font-size;
+    font-weight: bold;
+}

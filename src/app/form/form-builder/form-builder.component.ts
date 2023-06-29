@@ -105,7 +105,12 @@ export class FormBuilderComponent implements OnInit {
     if (arr.length) {
       this.dialogMessage.showInfoMessage('Check required');
     } else {
-      this.store.dispatch(setAnswerList({ answers: this.questionList }))
+      this.store.dispatch(setAnswerList({
+        answers: this.questionList.filter(item => {
+          if (item.questionType == QuestionTypeEnum.ParagraphAnswer) return item;
+          return item.answerArray?.filter(x => x.status)?.length;
+        })
+      }))
       this.router.navigateByUrl('form/answer')
     }
   }

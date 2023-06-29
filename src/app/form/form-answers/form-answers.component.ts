@@ -26,7 +26,6 @@ export class FormAnswersComponent implements OnInit {
     this.store.select(selectAnswers)
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((res: Question[]) => {
-        console.log(res)
         this.questionList = res;
       });
   }

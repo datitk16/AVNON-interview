@@ -1,7 +1,7 @@
 <div class="container">
     <div class="form">
         <div *ngFor="let item of questionList;let i =index">
-            <div>{{item.title}} <span *ngIf="item.isrequied">*</span></div>
+            <div class="title">{{item.title}} <span *ngIf="item.isrequied">*</span></div>
             <ng-container *ngIf="item.questionType === questionTypeEnum.ParagraphAnswer;else isCheckbox">
                 <app-textarea (description)="description($event, i)"></app-textarea>
             </ng-container>

@@ -1,4 +1,5 @@
 @import '../../../styles/variables.scss';
+@import '../../../styles/mixin.scss';
 
 .form {
     padding: 10px;
@@ -8,5 +9,9 @@
 
     mat-form-field {
         width: 100%;
+    }
+
+    .title {
+        @include title(15);
     }
 }
